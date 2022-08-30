@@ -14,7 +14,7 @@ function Product (name, src){
 this.name = name;
 this.src = src;
 this.views = 0;
-this.clicks = 0;
+this.clicks = 0; $
 Product.allProductsArray.push(this);
 }
 
@@ -32,7 +32,12 @@ function renderProducts(){
 while (product1 === product2){
     product2 = getRandomNumber();
 }
-
+ while (product1 === product3) {
+    product3 = getRandomNumber();
+}
+while (product2 === product3) {
+    product3 = getRandomNumber();
+}
 image1.src = Product.allProductsArray[product1].src;
 image2.src = Product.allProductsArray[product2].src;
 image3.src = Product.allProductsArray[product3].src;
