@@ -69,7 +69,7 @@ function renderResults(){
     let ul = document.querySelector('ul');
     for (let i = 0; i < Product.allProductsArray.length; i++){
         let li = document.createElement('li');
-        li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} views and was chosen ${Product.allProductsArray[i].clicks} times.`;
+        li.textContent = `${Product.allProductsArray[i].name}: ${Product.allProductsArray[i].views} Views and ${Product.allProductsArray[i].clicks} Votes.`;
         ul.appendChild(li);
     }
 }
