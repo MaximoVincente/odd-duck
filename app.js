@@ -10,6 +10,7 @@ let image3 = document.getElementById('img3');
 let myButton = document.getElementById('count');
 let clicks = 0;
 let maxClicks = 25;
+let uniquePhoto =[];
 
 function Product (name, src){
 this.name = name;
@@ -29,18 +30,21 @@ function renderProducts(){
     let product1 = getRandomNumber();
     let product2 = getRandomNumber();
     let product3 = getRandomNumber();
+    
 
-while (product1 === product2){
+
+    while (product1 === uniquePhoto.includes(product1,product2,product3)){
+    product1 = getRandomNumber();
+}
+    while (product2 === uniquePhoto.includes(product1,product2,product3)) {
     product2 = getRandomNumber();
 }
- while (product1 === product3) {
-    product3 = getRandomNumber();
-}
-while (product2 === product3) {
+    while (product3 === uniquePhoto.includes(product1,product2,product3)) {
     product3 = getRandomNumber();
 }
 
-
+uniquePhoto = [product1, product2, product3];
+console.log(uniquePhoto);
 
 image1.src = Product.allProductsArray[product1].src;
 image2.src = Product.allProductsArray[product2].src;
@@ -65,6 +69,7 @@ function handleProductClick(event){
             break;
         }
     }
+
     if (clicks === maxClicks){
         productContainer.removeEventListener('click', handleProductClick);
         resultButton.addEventListener('click', renderResults);

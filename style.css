@@ -70,6 +70,7 @@ ul{
     font-family: sans-serif;
     line-height: 40px;
     font-weight: bold;
+    margin-top: 500px;
 }
 
 li{
@@ -85,4 +86,11 @@ p{
 footer{
     background-color: rgb(99, 187, 158);
     border-radius: 29px;
+}
+
+.chart-size{
+    width: 1100px;
+    height: 400px;
+    display: block;
+    margin-left: 200px;
 }
