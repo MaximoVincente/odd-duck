@@ -1,5 +1,6 @@
 'use strict';
 
+
 let productContainer = document.querySelector('section');
 let resultButton = document.getElementById('my_button');
 let countSpan = document.getElementById('count')
@@ -38,6 +39,9 @@ while (product1 === product2){
 while (product2 === product3) {
     product3 = getRandomNumber();
 }
+
+
+
 image1.src = Product.allProductsArray[product1].src;
 image2.src = Product.allProductsArray[product2].src;
 image3.src = Product.allProductsArray[product3].src;
@@ -49,10 +53,10 @@ Product.allProductsArray[product1].views++;
 Product.allProductsArray[product2].views++;
 Product.allProductsArray[product3].views++;
 }
+
+
 function handleProductClick(event){
-    if (!event.target instanceof HTMLImageElement){
-        alert('Must click an image');
-    }
+
     clicks++
     let clickProduct = event.target.alt;
     for (let i = 0; i < Product.allProductsArray.length; i++){
@@ -77,6 +81,7 @@ function renderResults(){
         li.textContent = `${Product.allProductsArray[i].name}: ${Product.allProductsArray[i].views} Views and ${Product.allProductsArray[i].clicks} Votes.`;
         ul.appendChild(li);
     }
+    displayChart();
 }
 
 
@@ -101,8 +106,53 @@ new Product('Unicorn', 'assets/unicorn.jpeg');
 new Product('Water-can', 'assets/water-can.jpeg');
 new Product('Wine', 'assets/wine-glass.jpeg');
 
+
+function displayChart(){
+
+let ctx = document.getElementById("chart").getContext("2d");
+
+
+let labels = [];
+let productVotes = {
+    label: '#of Votes',
+    data: [],
+    backgroundColor: ["rgba(128, 57, 26, 0.8)"]
+};
+
+let productViews = {
+    label: '# of Views',
+    data: [],
+    backgroundColor: ["rgba(29, 29, 2, 0.8)"]
+};
+
+//loop
+for(let i = 0; i < Product.allProductsArray.length; i++){
+    let product = Product.allProductsArray[i];
+
+    labels[i] = product.name;
+    productVotes.data[i] = product.clicks;
+    productViews.data[i] = product.views;
+}
+
+let chart = new Chart(ctx,{
+    type: "bar",
+    data: {
+        labels: labels,
+        datasets: [
+        productVotes,
+        productViews,
+    ],
+    },
+    options:{
+        scales:{
+            y:{
+                beginAtZero: true,
+            },
+        },
+    },
+});
+
+}
 renderProducts();
-
 productContainer.addEventListener('click', handleProductClick);
-
 
