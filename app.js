@@ -59,8 +59,6 @@ function handleProductClick(event){
     if (clicks === maxClicks){
         productContainer.removeEventListener('click', handleProductClick);
         resultButton.addEventListener('click', renderResults);
-        resultButton.className = 'clicks-allowed';
-        productContainer.className = 'no-voting';
         alert('Max votes submitted. Check Results');
     }else{
         renderProducts();
