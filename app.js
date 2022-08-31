@@ -26,44 +26,39 @@ function getRandomNumber(){
     return Math.floor(Math.random() * Product.allProductsArray.length);
 }
 
-function renderProducts(){
-    let product1 = getRandomNumber();
-    let product2 = getRandomNumber();
-    let product3 = getRandomNumber();
-    
+function uniqueImage(){
 
-    while (product1 === product2){
-    product2 = getRandomNumber();
-}
-    while (product1 === product3) {
-    product3 = getRandomNumber();
-}
-    while (product2 === product3) {
-    product3 = getRandomNumber();
-}
-
-    while (uniquePhoto.length < Product.allProductsArray.includes(product1,product2,product3).length) {
-        let product = getRandomNumber();
-        if (!uniquePhoto.includes(product)) {
-            uniquePhoto.push(product1,product2,product3);
-        }
+let currentArray = [];
+while (currentArray.length < 3) {
+    let randomNumber = getRandomNumber();
+    if (currentArray.includes(randomNumber) || uniquePhoto.includes(randomNumber)) {
     }
-
-uniquePhoto = [product1,product2,product3];
-console.log(uniquePhoto);
-
-image1.src = Product.allProductsArray[product1].src;
-image2.src = Product.allProductsArray[product2].src;
-image3.src = Product.allProductsArray[product3].src;
-image1.alt = Product.allProductsArray[product1].name;
-image2.alt = Product.allProductsArray[product2].name;
-image3.alt = Product.allProductsArray[product3].name;
-
-Product.allProductsArray[product1].views++;
-Product.allProductsArray[product2].views++;
-Product.allProductsArray[product3].views++;
+    else {
+        currentArray.push(randomNumber);
+    }
+}
+uniquePhoto = currentArray;
+return currentArray;
 }
 
+
+
+function renderProducts(){
+    let uniqueImages = uniqueImage();
+    let product1 = Product.allProductsArray[uniqueImages[0]];
+    let product2 = Product.allProductsArray[uniqueImages[1]];
+    let product3 = Product.allProductsArray[uniqueImages[2]];
+image1.src = product1.src;
+image2.src = product2.src;
+image3.src = product3.src;
+image1.alt = product1.name;
+image2.alt = product2.name;
+image3.alt = product3.name;
+
+product1.views++;
+product2.views++;
+product3.views++;
+}
 
 function handleProductClick(event){
 
