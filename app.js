@@ -19,8 +19,9 @@ this.views = 0;
 this.clicks = 0; 
 Product.allProductsArray.push(this);
 }
-
 Product.allProductsArray = [];
+
+
 
 function getRandomNumber(){
     return Math.floor(Math.random() * Product.allProductsArray.length);
@@ -77,6 +78,9 @@ function handleProductClick(event){
         resultButton.addEventListener('click', renderResults);
         alert('Max votes submitted. Check Results');
     }else{
+    let toStore = Product.allProductsArray;
+    console.log(toStore);
+    localStorage.setItem("toStore", JSON.stringify(toStore));
         renderProducts();
     }
 }
@@ -159,6 +163,12 @@ let chart = new Chart(ctx,{
     },
 });
 
+}
+
+let storedProduct = localStorage.getItem("toStore");
+console.log(storedProduct);
+if (storedProduct) {
+    Product.allProductsArray = JSON.parse(storedProduct);
 }
 renderProducts();
 productContainer.addEventListener('click', handleProductClick);
