@@ -32,18 +32,24 @@ function renderProducts(){
     let product3 = getRandomNumber();
     
 
-
-    while (product1 === uniquePhoto.includes(product1,product2,product3)){
-    product1 = getRandomNumber();
-}
-    while (product2 === uniquePhoto.includes(product1,product2,product3)) {
+    while (product1 === product2){
     product2 = getRandomNumber();
 }
-    while (product3 === uniquePhoto.includes(product1,product2,product3)) {
+    while (product1 === product3) {
+    product3 = getRandomNumber();
+}
+    while (product2 === product3) {
     product3 = getRandomNumber();
 }
 
-uniquePhoto = [product1, product2, product3];
+    while (uniquePhoto.length < Product.allProductsArray.includes(product1,product2,product3).length) {
+        let product = getRandomNumber();
+        if (!uniquePhoto.includes(product)) {
+            uniquePhoto.push(product1,product2,product3);
+        }
+    }
+
+uniquePhoto = [product1,product2,product3];
 console.log(uniquePhoto);
 
 image1.src = Product.allProductsArray[product1].src;
