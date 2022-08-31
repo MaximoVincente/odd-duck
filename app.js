@@ -1,5 +1,6 @@
 'use strict';
 
+
 let productContainer = document.querySelector('section');
 let resultButton = document.getElementById('my_button');
 let countSpan = document.getElementById('count')
@@ -9,6 +10,7 @@ let image3 = document.getElementById('img3');
 let myButton = document.getElementById('count');
 let clicks = 0;
 let maxClicks = 25;
+let uniquePhoto =[];
 
 function Product (name, src){
 this.name = name;
@@ -24,35 +26,42 @@ function getRandomNumber(){
     return Math.floor(Math.random() * Product.allProductsArray.length);
 }
 
-function renderProducts(){
-    let product1 = getRandomNumber();
-    let product2 = getRandomNumber();
-    let product3 = getRandomNumber();
+function uniqueImage(){
 
-while (product1 === product2){
-    product2 = getRandomNumber();
-}
- while (product1 === product3) {
-    product3 = getRandomNumber();
-}
-while (product2 === product3) {
-    product3 = getRandomNumber();
-}
-image1.src = Product.allProductsArray[product1].src;
-image2.src = Product.allProductsArray[product2].src;
-image3.src = Product.allProductsArray[product3].src;
-image1.alt = Product.allProductsArray[product1].name;
-image2.alt = Product.allProductsArray[product2].name;
-image3.alt = Product.allProductsArray[product3].name;
-
-Product.allProductsArray[product1].views++;
-Product.allProductsArray[product2].views++;
-Product.allProductsArray[product3].views++;
-}
-function handleProductClick(event){
-    if (!event.target instanceof HTMLImageElement){
-        alert('Must click an image');
+let currentArray = [];
+while (currentArray.length < 3) {
+    let randomNumber = getRandomNumber();
+    if (currentArray.includes(randomNumber) || uniquePhoto.includes(randomNumber)) {
     }
+    else {
+        currentArray.push(randomNumber);
+    }
+}
+uniquePhoto = currentArray;
+return currentArray;
+}
+
+
+
+function renderProducts(){
+    let uniqueImages = uniqueImage();
+    let product1 = Product.allProductsArray[uniqueImages[0]];
+    let product2 = Product.allProductsArray[uniqueImages[1]];
+    let product3 = Product.allProductsArray[uniqueImages[2]];
+image1.src = product1.src;
+image2.src = product2.src;
+image3.src = product3.src;
+image1.alt = product1.name;
+image2.alt = product2.name;
+image3.alt = product3.name;
+
+product1.views++;
+product2.views++;
+product3.views++;
+}
+
+function handleProductClick(event){
+
     clicks++
     let clickProduct = event.target.alt;
     for (let i = 0; i < Product.allProductsArray.length; i++){
@@ -61,6 +70,7 @@ function handleProductClick(event){
             break;
         }
     }
+
     if (clicks === maxClicks){
         productContainer.removeEventListener('click', handleProductClick);
         resultButton.addEventListener('click', renderResults);
@@ -77,6 +87,7 @@ function renderResults(){
         li.textContent = `${Product.allProductsArray[i].name}: ${Product.allProductsArray[i].views} Views and ${Product.allProductsArray[i].clicks} Votes.`;
         ul.appendChild(li);
     }
+    displayChart();
 }
 
 
@@ -101,8 +112,53 @@ new Product('Unicorn', 'assets/unicorn.jpeg');
 new Product('Water-can', 'assets/water-can.jpeg');
 new Product('Wine', 'assets/wine-glass.jpeg');
 
+
+function displayChart(){
+
+let ctx = document.getElementById("chart").getContext("2d");
+
+
+let labels = [];
+let productVotes = {
+    label: '#of Votes',
+    data: [],
+    backgroundColor: ["rgba(128, 57, 26, 0.8)"]
+};
+
+let productViews = {
+    label: '# of Views',
+    data: [],
+    backgroundColor: ["rgba(29, 29, 2, 0.8)"]
+};
+
+//loop
+for(let i = 0; i < Product.allProductsArray.length; i++){
+    let product = Product.allProductsArray[i];
+
+    labels[i] = product.name;
+    productVotes.data[i] = product.clicks;
+    productViews.data[i] = product.views;
+}
+
+let chart = new Chart(ctx,{
+    type: "bar",
+    data: {
+        labels: labels,
+        datasets: [
+        productVotes,
+        productViews,
+    ],
+    },
+    options:{
+        scales:{
+            y:{
+                beginAtZero: true,
+            },
+        },
+    },
+});
+
+}
 renderProducts();
-
 productContainer.addEventListener('click', handleProductClick);
-
 
