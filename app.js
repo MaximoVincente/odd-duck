@@ -58,6 +58,7 @@ image3.alt = product3.name;
 product1.views++;
 product2.views++;
 product3.views++;
+console.log(uniquePhoto);
 }
 
 function handleProductClick(event){
