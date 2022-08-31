@@ -105,10 +105,10 @@ new Product('Breakfast', 'assets/breakfast.jpeg');
 new Product('Bubblegum', 'assets/bubblegum.jpeg');
 new Product('Chair', 'assets/chair.jpeg');
 new Product('Cthulhu', 'assets/cthulhu.jpeg');
-new Product('Dog-duck', 'assets/dog-duck.jpeg');
+new Product('Dog-Duck', 'assets/dog-duck.jpeg');
 new Product('Dragon', 'assets/dragon.jpeg');
 new Product('Pen', 'assets/pen.jpeg');
-new Product('Pet-sweep', 'assets/pet-sweep.jpeg');
+new Product('Pet-Sweep', 'assets/pet-sweep.jpeg');
 new Product('Scissors', 'assets/scissors.jpeg');
 new Product('Shark', 'assets/shark.jpeg');
 new Product('Sweep', 'assets/sweep.png');
@@ -170,6 +170,7 @@ console.log(storedProduct);
 if (storedProduct) {
     Product.allProductsArray = JSON.parse(storedProduct);
 }
+console.log(storedProduct);
 renderProducts();
 productContainer.addEventListener('click', handleProductClick);
 
